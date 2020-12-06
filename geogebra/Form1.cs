@@ -10,11 +10,27 @@ using System.Windows.Forms;
 
 namespace geogebra
 {
+
     public partial class Form1 : Form
     {
         public Form1()
         {
             InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+            Grid g = new Grid();
+            g.pen = new Pen(Color.Black);
+            g.Matrix = this.CreateGraphics();
+            g.DrawGridLine();
+            g.DrawAxis();
+            
         }
     }
 }
