@@ -29,8 +29,7 @@ namespace geogebra
             g.pen = new Pen(Color.Black);
             g.Matrix = this.CreateGraphics();
             g.DrawGridLine();
-            g.DrawAxis();
-            
+            g.DrawAxis();       
         }
     }
 }
