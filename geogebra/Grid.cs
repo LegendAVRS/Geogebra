@@ -49,7 +49,6 @@ namespace geogebra
                 this.Matrix.DrawLine(this.pen, p1, p2);
                 p1.Y += space;
                 p2.Y += space;
-                Console.WriteLine(p1.Y);
             }
 
             p1 = middle_point;
