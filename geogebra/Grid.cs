@@ -11,6 +11,8 @@ namespace geogebra
     {
         public Graphics Matrix;
         public Pen pen;
+        public List<int> x_list = new List<int>();
+        public List<int> y_list = new List<int>();
         public void DrawAxis()
         {
             this.pen.Color = Color.Black;
@@ -33,9 +35,10 @@ namespace geogebra
             p2.X = Form1.ActiveForm.Size.Width;
             int space = 50;
 
-            while (p1.Y > 0)
+            while (p1.Y > 0) //Upper horizontal lines
             {
                 this.Matrix.DrawLine(this.pen, p1, p2);
+                y_list.Add(p1.Y);
                 p1.Y -= space;
                 p2.Y -= space;
             }
@@ -44,9 +47,10 @@ namespace geogebra
             p2 = middle_point;
             p1.X = 0;
             p2.X = Form1.ActiveForm.Size.Width;
-            while (p1.Y < Form1.ActiveForm.Size.Height)
+            while (p1.Y < Form1.ActiveForm.Size.Height) //Lower horizontal lines
             {
                 this.Matrix.DrawLine(this.pen, p1, p2);
+                y_list.Add(p1.Y);
                 p1.Y += space;
                 p2.Y += space;
             }
@@ -56,9 +60,10 @@ namespace geogebra
             p1.Y = 0;
             p2.Y = Form1.ActiveForm.Size.Height; 
 
-            while (p1.X > 0)
+            while (p1.X > 0) //Left vertial lines
             {
                 this.Matrix.DrawLine(this.pen, p1, p2);
+                x_list.Add(p1.X);
                 p1.X -= space;
                 p2.X -= space;
             }
@@ -68,12 +73,16 @@ namespace geogebra
             p1.Y = 0;
             p2.Y = Form1.ActiveForm.Size.Height;
 
-            while (p1.X < Form1.ActiveForm.Size.Width)
+            while (p1.X < Form1.ActiveForm.Size.Width)  //Right vertical lines
             {
                 this.Matrix.DrawLine(this.pen, p1, p2);
+                x_list.Add(p1.X);
                 p1.X += space;
                 p2.X += space;
             }
+
+            x_list.Sort();
+            y_list.Sort();
         }
     }
 }
