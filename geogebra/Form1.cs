@@ -15,19 +15,8 @@ namespace geogebra
     {
         Grid g = new Grid();
         Dot new_dot = new Dot();
-        public int getNearest(List<int> p_list, int p)
-        {
-            int l = 0, r = p_list.Count() - 1;
-            while (l <= r)
-            {
-                int mid = (l + r) / 2;
-                if (p_list[mid] <= p_list[l])
-                    l = mid + 1;
-                else
-                    r = mid - 1;
-            }
-            return l;
-        }
+        int dot_x, dot_y;
+
         public Form1()
         {
             InitializeComponent();
@@ -44,16 +33,24 @@ namespace geogebra
             g.Matrix = this.CreateGraphics();
             g.DrawGridLine();
             g.DrawAxis();
-            for (int i = 0; i < g.x_list.Count(); ++i)
-                Console.WriteLine(g.x_list[i]);
+            for (int i = 0; i < g.y_list.Count(); ++i)
+                Console.WriteLine(g.y_list[i]);
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            
-            int dot_x = g.x_list[getNearest(g.x_list, e.X)];
-            Console.WriteLine(dot_x);
-          //  label1.Text = e.X.ToString();
+              if (!new_dot.first_dot)
+              {
+                g.pen.Color = Form1.DefaultBackColor;
+                g.Matrix.DrawEllipse(g.pen, dot_x, dot_y, 5, 5);
+                g.pen.Color = Color.Black;
+              }
+
+              dot_x = new_dot.getNearest(g.x_list, e.X);
+              dot_y = new_dot.getNearest(g.y_list, e.Y);
+              g.Matrix.DrawEllipse(g.pen, dot_x, dot_y, 5, 5);
+              new_dot.first_dot = false;
+
 
         }
     }
