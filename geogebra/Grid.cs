@@ -83,6 +83,9 @@ namespace geogebra
 
             x_list.Sort();
             y_list.Sort();
+
+            
+
         }
     }
 }
