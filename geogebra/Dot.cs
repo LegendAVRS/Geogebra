@@ -11,10 +11,10 @@ namespace geogebra
     public class Dot
     {
         public Graphics dot_matrix;
-        public Pen pen= new Pen(Color.Black);
+        public Pen pen = new Pen(Color.Black);
         public bool first_dot = true;
         private int dot_size = 8;
-        public int getFirstNotSmaller(List<int> p_list, int p)
+        private int getFirstNotSmaller(List<int> p_list, int p)
         {
             int l = 0, r = p_list.Count() - 1, res = r;
             while (l <= r)
@@ -29,7 +29,7 @@ namespace geogebra
             }
             return p_list[res];
         }
-        public int getLastSmaller(List<int> p_list, int p)
+        private int getLastSmaller(List<int> p_list, int p)
         {
             int l = 0, r = p_list.Count() - 1, res = 0;
             while (l <= r)
@@ -52,18 +52,19 @@ namespace geogebra
             return pL;
         }
         
-        public void deleteDot(Dot g, int x, int y)
+        public void deleteDot(Dot dot, int x, int y)
         {
-            g.pen.Color = Form1.DefaultBackColor;
-            g.dot_matrix.DrawEllipse(g.pen, x - 4 , y - 4, dot_size, dot_size);
-           // g.pen.Color = Color.LightGray;
+            dot.pen.Color = Form1.DefaultBackColor;
+            dot.dot_matrix.DrawEllipse(dot.pen, x - 4 , y - 4, dot_size, dot_size);
+            dot.pen.Color = Color.Black;
           //  g.Matrix.DrawLine(g.pen, x - 2, y, x + 2, y);
            // g.Matrix.DrawLine(g.pen, x, y - 2, x, y + 2);
         }
 
-        public void drawDot(Dot g, int x, int y)
+        public void drawDot(Dot dot, int x, int y)
         {
-            g.dot_matrix.DrawEllipse(g.pen, x - 4, y - 4, dot_size, dot_size);
+            dot.pen.Color = Color.Black;
+            dot.dot_matrix.DrawEllipse(dot.pen, x - 4, y - 4, dot_size, dot_size);
         }
     }
 }
