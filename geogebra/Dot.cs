@@ -12,7 +12,11 @@ namespace geogebra
     {
         public Graphics dot_matrix;
         public Pen pen = new Pen(Color.Black);
+        public SolidBrush brush = new SolidBrush(Color.Black);
         public bool first_dot = true;
+        public int new_x, new_y, old_x, old_y;
+        public int dot_cnt = 0;
+
         private int dot_size = 8;
         private int getFirstNotSmaller(List<int> p_list, int p)
         {
@@ -65,6 +69,7 @@ namespace geogebra
         {
             dot.pen.Color = Color.Black;
             dot.dot_matrix.DrawEllipse(dot.pen, x - 4, y - 4, dot_size, dot_size);
+            dot.dot_matrix.FillEllipse(dot.brush, x - 4, y - 4, dot_size, dot_size);
         }
     }
 }

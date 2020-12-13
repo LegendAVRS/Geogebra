@@ -15,8 +15,8 @@ namespace geogebra
     {
         Grid g = new Grid();
         Dot dot = new Dot();
-        int old_dot_x, old_dot_y;
-        Bitmap grid_surface, dot_surface;
+        Bitmap grid_surface, dot_surface, drawn_surface;
+        List<Bitmap> bm_list = new List<Bitmap>();
 
         public Form1()
         {
@@ -33,38 +33,61 @@ namespace geogebra
         private void Form1_Shown(object sender, EventArgs e)
         {
             grid_surface = new Bitmap(ActiveForm.Width, ActiveForm.Height);
-           
-            
-         
+            drawn_surface = new Bitmap(ActiveForm.Width, ActiveForm.Height);
+            picGrid.Height = ActiveForm.Height;
+            picGrid.Width = ActiveForm.Width;
         }
 
         private void pictureBox1_MouseMove(object sender, MouseEventArgs e)
         {
+            if (g.x_list.Count == 0)
+                return;
+
             dot_surface = new Bitmap(ActiveForm.Width, ActiveForm.Height);
             dot.dot_matrix = Graphics.FromImage(dot_surface);
 
-            int new_dot_x = dot.getNearest(g.x_list, e.X);
-            int new_dot_y = dot.getNearest(g.y_list, e.Y);
+            dot.new_x = dot.getNearest(g.x_list, e.X);
+            dot.new_y = dot.getNearest(g.y_list, e.Y);
             if (!dot.first_dot)
             {
                 dot.first_dot = false;
-                if (new_dot_x == old_dot_x && new_dot_y == old_dot_y)
+                if (dot.new_x == dot.old_x && dot.new_y == dot.old_y)
                     return;
             }
 
-            dot.drawDot(dot, new_dot_x, new_dot_y);
-            old_dot_x = new_dot_x;
-            old_dot_y = new_dot_y;
+            dot.drawDot(dot, dot.new_x, dot.new_y);
+            dot.old_x = dot.new_x;
+            dot.old_y = dot.new_y;
 
             Bitmap final = new Bitmap(ActiveForm.Width, ActiveForm.Height);
       
-            Graphics new_g = Graphics.FromImage(final);
-            new_g.DrawImage(grid_surface, 0, 0, ActiveForm.Width, ActiveForm.Height);
-            new_g.DrawImage(dot_surface, 0, 0, ActiveForm.Width, ActiveForm.Height);
-            new_g.Dispose();
+            Graphics graphics = Graphics.FromImage(final);
+            graphics.DrawImage(grid_surface, 0, 0, ActiveForm.Width, ActiveForm.Height);
+            graphics.DrawImage(dot_surface, 0, 0, ActiveForm.Width, ActiveForm.Height);
+            graphics.DrawImage(drawn_surface, 0, 0, ActiveForm.Width, ActiveForm.Height);
+            graphics.Dispose();
    
-            pictureBox1.Image = final;
+            picGrid.Image = final;
       
+        }
+
+        private void picGrid_Click(object sender, EventArgs e)
+        {
+            MouseEventArgs me = (MouseEventArgs)e;
+            if (me.Button == MouseButtons.Left)
+            {
+                bm_list.Add((Bitmap)drawn_surface.Clone());
+                dot.dot_matrix = Graphics.FromImage(drawn_surface);
+                dot.drawDot(dot, dot.new_x, dot.new_y);
+            }
+            else
+            {
+                if (bm_list.Count == 0)
+                    return;
+                drawn_surface = bm_list[bm_list.Count - 1];
+                bm_list.RemoveAt(bm_list.Count - 1);
+            }
+
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
@@ -74,16 +97,7 @@ namespace geogebra
             g.DrawGridLine();
             g.DrawAxis();
        
-            pictureBox1.Image = grid_surface;
-
-
-        }    
-
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
-        {
-
-            
-
-        }
+            picGrid.Image = grid_surface;
+        }   
     }
 }

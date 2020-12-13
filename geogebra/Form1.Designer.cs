@@ -28,36 +28,36 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.picGrid = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.picGrid)).BeginInit();
             this.SuspendLayout();
             // 
-            // pictureBox1
+            // picGrid
             // 
-            this.pictureBox1.Location = new System.Drawing.Point(-2, -1);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(655, 385);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
+            this.picGrid.Location = new System.Drawing.Point(-2, -1);
+            this.picGrid.Name = "picGrid";
+            this.picGrid.Size = new System.Drawing.Size(655, 385);
+            this.picGrid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.picGrid.TabIndex = 0;
+            this.picGrid.TabStop = false;
+            this.picGrid.Click += new System.EventHandler(this.picGrid_Click);
+            this.picGrid.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pictureBox1_MouseMove);
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(652, 385);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.picGrid);
             this.Name = "Form1";
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
-            this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGrid)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox picGrid;
     }
 }
 
