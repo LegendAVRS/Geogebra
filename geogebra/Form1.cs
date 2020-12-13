@@ -17,12 +17,11 @@ namespace geogebra
         Dot dot = new Dot();
         Bitmap grid_surface, dot_surface, drawn_surface;
         List<Bitmap> bm_list = new List<Bitmap>();
+        
 
         public Form1()
         {
             InitializeComponent();
-            
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -77,8 +76,15 @@ namespace geogebra
             if (me.Button == MouseButtons.Left)
             {
                 bm_list.Add((Bitmap)drawn_surface.Clone());
+                dot.dot_list.Add(new Point(dot.new_x, dot.new_y));
+
                 dot.dot_matrix = Graphics.FromImage(drawn_surface);
                 dot.drawDot(dot, dot.new_x, dot.new_y);
+                
+                if (dot.dot_list.Count() > 1)
+                {
+                    dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);
+                }
             }
             else
             {
@@ -86,8 +92,8 @@ namespace geogebra
                     return;
                 drawn_surface = bm_list[bm_list.Count - 1];
                 bm_list.RemoveAt(bm_list.Count - 1);
+                dot.dot_list.RemoveAt(dot.dot_list.Count - 1);
             }
-
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)

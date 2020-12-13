@@ -16,7 +16,7 @@ namespace geogebra
         public bool first_dot = true;
         public int new_x, new_y, old_x, old_y;
         public int dot_cnt = 0;
-
+        public List<Point> dot_list = new List<Point>();
         private int dot_size = 8;
         private int getFirstNotSmaller(List<int> p_list, int p)
         {
