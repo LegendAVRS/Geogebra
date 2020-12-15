@@ -33,8 +33,7 @@ namespace geogebra
             g.Matrix = this.CreateGraphics();
             g.DrawGridLine();
             g.DrawAxis();
-            for (int i = 0; i < g.y_list.Count(); ++i)
-                Console.WriteLine(g.y_list[i]);
+
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
