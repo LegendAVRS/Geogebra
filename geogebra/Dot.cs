@@ -48,7 +48,7 @@ namespace geogebra
             }
             return p_list[res];
         }
-        public int getNearest(List<int> p_list, int p)
+        public int getNearest(List<int>p_list, int first_p, int p)
         {
             int pR = getFirstNotSmaller(p_list, p);
             int pL = getLastSmaller(p_list, p);
