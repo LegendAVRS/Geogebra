@@ -56,20 +56,13 @@ namespace geogebra
             return pL;
         }
         
-        public void deleteDot(Dot dot, int x, int y)
-        {
-            dot.pen.Color = Form1.DefaultBackColor;
-            dot.dot_matrix.DrawEllipse(dot.pen, x - 4 , y - 4, dot_size, dot_size);
-            dot.pen.Color = Color.Black;
-          //  g.Matrix.DrawLine(g.pen, x - 2, y, x + 2, y);
-           // g.Matrix.DrawLine(g.pen, x, y - 2, x, y + 2);
-        }
+        
 
         public void drawDot(Dot dot, int x, int y)
         {
-            dot.pen.Color = Color.Black;
             dot.dot_matrix.DrawEllipse(dot.pen, x - 4, y - 4, dot_size, dot_size);
             dot.dot_matrix.FillEllipse(dot.brush, x - 4, y - 4, dot_size, dot_size);
         }
+       
     }
 }

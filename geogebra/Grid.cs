@@ -15,12 +15,13 @@ namespace geogebra
         public List<int> y_list = new List<int>();
 
         public int first_horizontal;
-        public int first_vertical;    
-        
+        public int first_vertical;
+
+        private int threshold = 150;
 
         public void DrawAxis()
         {
-            int form_width = Form1.ActiveForm.Width - 100;
+            int form_width = Form1.ActiveForm.Width - threshold;
             int form_height = Form1.ActiveForm.Height;
 
             this.pen.Color = Color.Black;
@@ -36,7 +37,7 @@ namespace geogebra
 
         public void DrawGridLine()
         {
-            int form_width = Form1.ActiveForm.Width - 100;
+            int form_width = Form1.ActiveForm.Width - threshold;
             int form_height = Form1.ActiveForm.Height;
 
             this.pen.Color = Color.LightGray;
