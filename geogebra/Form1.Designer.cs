@@ -30,17 +30,18 @@
         {
             this.picGrid = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.numDagiac = new System.Windows.Forms.NumericUpDown();
             this.rbtnDagiac = new System.Windows.Forms.RadioButton();
             this.rbtnLineCut = new System.Windows.Forms.RadioButton();
             this.rbtnLine = new System.Windows.Forms.RadioButton();
             this.cbtnRound = new System.Windows.Forms.CheckBox();
             this.cbtnShowDot = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.numDagiac = new System.Windows.Forms.NumericUpDown();
+            this.rbtnCursor = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.picGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDagiac)).BeginInit();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // picGrid
@@ -56,21 +57,34 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.rbtnCursor);
             this.groupBox1.Controls.Add(this.numDagiac);
             this.groupBox1.Controls.Add(this.rbtnDagiac);
             this.groupBox1.Controls.Add(this.rbtnLineCut);
             this.groupBox1.Controls.Add(this.rbtnLine);
             this.groupBox1.Location = new System.Drawing.Point(652, -1);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(131, 143);
+            this.groupBox1.Size = new System.Drawing.Size(131, 160);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
             // 
+            // numDagiac
+            // 
+            this.numDagiac.Location = new System.Drawing.Point(10, 129);
+            this.numDagiac.Name = "numDagiac";
+            this.numDagiac.Size = new System.Drawing.Size(120, 22);
+            this.numDagiac.TabIndex = 3;
+            this.numDagiac.Value = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
+            // 
             // rbtnDagiac
             // 
             this.rbtnDagiac.AutoSize = true;
-            this.rbtnDagiac.Location = new System.Drawing.Point(6, 86);
+            this.rbtnDagiac.Location = new System.Drawing.Point(10, 102);
             this.rbtnDagiac.Name = "rbtnDagiac";
             this.rbtnDagiac.Size = new System.Drawing.Size(77, 21);
             this.rbtnDagiac.TabIndex = 2;
@@ -82,7 +96,7 @@
             // rbtnLineCut
             // 
             this.rbtnLineCut.AutoSize = true;
-            this.rbtnLineCut.Location = new System.Drawing.Point(6, 59);
+            this.rbtnLineCut.Location = new System.Drawing.Point(10, 75);
             this.rbtnLineCut.Name = "rbtnLineCut";
             this.rbtnLineCut.Size = new System.Drawing.Size(79, 21);
             this.rbtnLineCut.TabIndex = 1;
@@ -94,7 +108,7 @@
             // rbtnLine
             // 
             this.rbtnLine.AutoSize = true;
-            this.rbtnLine.Location = new System.Drawing.Point(6, 31);
+            this.rbtnLine.Location = new System.Drawing.Point(10, 48);
             this.rbtnLine.Name = "rbtnLine";
             this.rbtnLine.Size = new System.Drawing.Size(56, 21);
             this.rbtnLine.TabIndex = 0;
@@ -131,24 +145,25 @@
             // 
             this.groupBox2.Controls.Add(this.cbtnRound);
             this.groupBox2.Controls.Add(this.cbtnShowDot);
-            this.groupBox2.Location = new System.Drawing.Point(652, 157);
+            this.groupBox2.Location = new System.Drawing.Point(652, 201);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(200, 100);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
-            // numDagiac
+            // rbtnCursor
             // 
-            this.numDagiac.Location = new System.Drawing.Point(6, 114);
-            this.numDagiac.Name = "numDagiac";
-            this.numDagiac.Size = new System.Drawing.Size(120, 22);
-            this.numDagiac.TabIndex = 3;
-            this.numDagiac.Value = new decimal(new int[] {
-            3,
-            0,
-            0,
-            0});
+            this.rbtnCursor.AutoSize = true;
+            this.rbtnCursor.Checked = true;
+            this.rbtnCursor.Location = new System.Drawing.Point(10, 21);
+            this.rbtnCursor.Name = "rbtnCursor";
+            this.rbtnCursor.Size = new System.Drawing.Size(71, 21);
+            this.rbtnCursor.TabIndex = 4;
+            this.rbtnCursor.TabStop = true;
+            this.rbtnCursor.Text = "Cursor";
+            this.rbtnCursor.UseVisualStyleBackColor = true;
+            this.rbtnCursor.CheckedChanged += new System.EventHandler(this.rbtnCursor_CheckedChanged);
             // 
             // Form1
             // 
@@ -162,9 +177,9 @@
             ((System.ComponentModel.ISupportInitialize)(this.picGrid)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.numDagiac)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numDagiac)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -180,6 +195,7 @@
         private System.Windows.Forms.CheckBox cbtnShowDot;
         private System.Windows.Forms.NumericUpDown numDagiac;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.RadioButton rbtnCursor;
     }
 }
 

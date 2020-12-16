@@ -20,12 +20,13 @@ namespace geogebra
         int threshold = 150;
         int form_width, form_height;
 
-        bool line_connect = true, line_cut = false, round = false, show_dot = true, da_giac = false;
+        bool line_connect = true, line_cut = false, round = false, show_dot = true, da_giac = false, cursor = true;
         bool first_dot = true;
         int poly_dot_cnt = 0;
         SolidBrush poly_brush = new SolidBrush(Color.FromArgb(128, 176, 196, 222));
         bool poly_drawn = false;
         List<int> poly_dot_cnt_list = new List<int>();
+        Poly poly = new Poly();
 
 
         public Form1()
@@ -59,8 +60,14 @@ namespace geogebra
             line_connect = rbtnLine.Checked;
             line_cut = rbtnLineCut.Checked;
             da_giac = rbtnDagiac.Checked;
+            cursor = rbtnCursor.Checked;
         }
         private void rbtnLineCut_CheckedChanged(object sender, EventArgs e)
+        {
+            rbtnCheck();
+        }
+
+        private void rbtnCursor_CheckedChanged(object sender, EventArgs e)
         {
             rbtnCheck();
         }
@@ -108,7 +115,7 @@ namespace geogebra
                 return;
             if (e.X > form_width)
                 return;
-
+          
             dot_surface = new Bitmap(form_width, form_height);
             dot.dot_matrix = Graphics.FromImage(dot_surface);
             dot.dot_matrix.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
@@ -130,7 +137,6 @@ namespace geogebra
                 if (dot.new_x == dot.old_x && dot.new_y == dot.old_y)
                     return;
             }
-
             dot.brush.Color = Color.FromArgb(128, 211, 211, 211);
             dot.drawDot(dot, dot.new_x, dot.new_y);
             dot.old_x = dot.new_x;
@@ -140,7 +146,7 @@ namespace geogebra
       
             Graphics graphics = Graphics.FromImage(final);
             graphics.DrawImage(grid_surface, 0, 0, form_width, form_height);
-            graphics.DrawImage(dot_surface, 0, 0, form_width, form_height);
+            if (!cursor) graphics.DrawImage(dot_surface, 0, 0, form_width, form_height);
             graphics.DrawImage(drawn_surface, 0, 0, form_width, form_height);
             graphics.Dispose();
    
@@ -149,12 +155,16 @@ namespace geogebra
         }
 
         private void picGrid_Click(object sender, EventArgs e)
-        {
-            
+        {            
             MouseEventArgs me = (MouseEventArgs)e;
             if (me.Button == MouseButtons.Left)
             {
-           
+                if (cursor)
+                {
+                    bool contain = poly.GetClickPoly(dot.new_x, dot.new_y);
+                    Console.WriteLine(contain);
+                    return;
+                }
                 bm_list.Add((Bitmap)drawn_surface.Clone());
                 dot.dot_list.Add(new Point(dot.new_x, dot.new_y));
 
@@ -192,17 +202,21 @@ namespace geogebra
                 else if (da_giac)
                 {
                     ++poly_dot_cnt;
-                    poly_dot_cnt_list.Add(poly_dot_cnt % (int)numDagiac.Value);                  
+                    poly_dot_cnt_list.Add(poly_dot_cnt % (int)numDagiac.Value);
+                   
                     if (poly_dot_cnt == (int)numDagiac.Value)
                     {
                         List<Point> poly_list = new List<Point>();
-                        for (int i = 1;i <= (int)numDagiac.Value;++i)  
+                        for (int i = 1;i <= (int)numDagiac.Value;++i)
                             poly_list.Add(dot.dot_list[dot.dot_list.Count - i]);
+                        poly.poly_drawn_list.Add(poly_list);
+
                         dot.dot_matrix.DrawPolygon(dot.pen, poly_list.ToArray());                        
                         dot.dot_matrix.FillPolygon(poly_brush, poly_list.ToArray());
                         poly_dot_cnt = 0;
                         poly_drawn = true;
-                    }
+                        
+                    }               
                     
                 }
                 dot.pen.Color = temp;
@@ -214,10 +228,15 @@ namespace geogebra
                 drawn_surface = bm_list[bm_list.Count - 1];
                 bm_list.RemoveAt(bm_list.Count - 1);
                 dot.dot_list.RemoveAt(dot.dot_list.Count - 1);
-                if (da_giac && poly_dot_cnt_list.Count > 1)
+                if (cursor || da_giac && poly_dot_cnt_list.Count > 1)
                 {
                     poly_dot_cnt_list.RemoveAt(poly_dot_cnt_list.Count - 1);
+                    if (poly_dot_cnt == 0)
+                    {
+                        if (poly.poly_drawn_list.Count != 0) poly.poly_drawn_list.RemoveAt(poly.poly_drawn_list.Count - 1);
+                    }
                     poly_dot_cnt = poly_dot_cnt_list[poly_dot_cnt_list.Count - 1];
+                    
                 }
             }
            
