@@ -26,6 +26,7 @@ namespace geogebra
         SolidBrush poly_brush = new SolidBrush(Color.FromArgb(128, 176, 196, 222));
         List<int> poly_dot_cnt_list = new List<int>();
         Poly poly = new Poly();
+        Point middle_point = new Point();
 
 
         public Form1()
@@ -48,7 +49,8 @@ namespace geogebra
             picGrid.Height = form_height;
             picGrid.Width = form_width;
 
-            poly_dot_cnt_list.Add(0);           
+            poly_dot_cnt_list.Add(0);
+            middle_point = new Point(form_width / 2, form_height / 2);
         }
 
         void rbtnCheck()
@@ -139,6 +141,9 @@ namespace geogebra
             dot.old_x = dot.new_x;
             dot.old_y = dot.new_y;
 
+            lblCoord.Text = "X: " + ((float)(dot.new_x - middle_point.X) / 50).ToString("0.0") + 
+                            " Y: " + (-(float)(dot.new_y - middle_point.Y) / 50).ToString("0.0");
+
             Bitmap final = new Bitmap(form_width, form_height);
       
             Graphics graphics = Graphics.FromImage(final);
@@ -157,8 +162,10 @@ namespace geogebra
                 Poly.Polygon polygon_click = poly.GetClickPoly(dot.new_x, dot.new_y);
                 if (!(polygon_click.poly_dot_list is null))
                 {
-                    Console.WriteLine("Area: " + polygon_click.area.ToString());
-                    Console.WriteLine("Perimeter: " + polygon_click.perimeter.ToString());
+                    lblData.Text = "Area: " + polygon_click.area.ToString("0.00") + "\n"
+                                    + "Perimeter: " + polygon_click.perimeter.ToString("0.00");
+               //     Console.WriteLine("Area: " + polygon_click.area.ToString());
+               //     Console.WriteLine("Perimeter: " + polygon_click.perimeter.ToString());
                 }
 
                 return true;

@@ -30,6 +30,7 @@
         {
             this.picGrid = new System.Windows.Forms.PictureBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.rbtnCursor = new System.Windows.Forms.RadioButton();
             this.numDagiac = new System.Windows.Forms.NumericUpDown();
             this.rbtnDagiac = new System.Windows.Forms.RadioButton();
             this.rbtnLineCut = new System.Windows.Forms.RadioButton();
@@ -37,11 +38,14 @@
             this.cbtnRound = new System.Windows.Forms.CheckBox();
             this.cbtnShowDot = new System.Windows.Forms.CheckBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.rbtnCursor = new System.Windows.Forms.RadioButton();
+            this.lblCoord = new System.Windows.Forms.Label();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.lblData = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picGrid)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numDagiac)).BeginInit();
             this.groupBox2.SuspendLayout();
+            this.groupBox3.SuspendLayout();
             this.SuspendLayout();
             // 
             // picGrid
@@ -68,6 +72,19 @@
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "groupBox1";
+            // 
+            // rbtnCursor
+            // 
+            this.rbtnCursor.AutoSize = true;
+            this.rbtnCursor.Checked = true;
+            this.rbtnCursor.Location = new System.Drawing.Point(10, 21);
+            this.rbtnCursor.Name = "rbtnCursor";
+            this.rbtnCursor.Size = new System.Drawing.Size(71, 21);
+            this.rbtnCursor.TabIndex = 4;
+            this.rbtnCursor.TabStop = true;
+            this.rbtnCursor.Text = "Cursor";
+            this.rbtnCursor.UseVisualStyleBackColor = true;
+            this.rbtnCursor.CheckedChanged += new System.EventHandler(this.rbtnCursor_CheckedChanged);
             // 
             // numDagiac
             // 
@@ -145,29 +162,46 @@
             // 
             this.groupBox2.Controls.Add(this.cbtnRound);
             this.groupBox2.Controls.Add(this.cbtnShowDot);
-            this.groupBox2.Location = new System.Drawing.Point(652, 201);
+            this.groupBox2.Location = new System.Drawing.Point(652, 195);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(200, 100);
+            this.groupBox2.Size = new System.Drawing.Size(131, 100);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "groupBox2";
             // 
-            // rbtnCursor
+            // lblCoord
             // 
-            this.rbtnCursor.AutoSize = true;
-            this.rbtnCursor.Checked = true;
-            this.rbtnCursor.Location = new System.Drawing.Point(10, 21);
-            this.rbtnCursor.Name = "rbtnCursor";
-            this.rbtnCursor.Size = new System.Drawing.Size(71, 21);
-            this.rbtnCursor.TabIndex = 4;
-            this.rbtnCursor.TabStop = true;
-            this.rbtnCursor.Text = "Cursor";
-            this.rbtnCursor.UseVisualStyleBackColor = true;
-            this.rbtnCursor.CheckedChanged += new System.EventHandler(this.rbtnCursor_CheckedChanged);
+            this.lblCoord.AutoSize = true;
+            this.lblCoord.Location = new System.Drawing.Point(12, 441);
+            this.lblCoord.Name = "lblCoord";
+            this.lblCoord.Size = new System.Drawing.Size(46, 17);
+            this.lblCoord.TabIndex = 5;
+            this.lblCoord.Text = "label1";
+            // 
+            // groupBox3
+            // 
+            this.groupBox3.Controls.Add(this.lblData);
+            this.groupBox3.Location = new System.Drawing.Point(652, 336);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(122, 100);
+            this.groupBox3.TabIndex = 6;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "groupBox3";
+            // 
+            // lblData
+            // 
+            this.lblData.AutoSize = true;
+            this.lblData.Location = new System.Drawing.Point(6, 18);
+            this.lblData.Name = "lblData";
+            this.lblData.Size = new System.Drawing.Size(46, 17);
+            this.lblData.TabIndex = 0;
+            this.lblData.Text = "label1";
             // 
             // Form1
             // 
             this.ClientSize = new System.Drawing.Size(780, 467);
+            this.Controls.Add(this.groupBox3);
+            this.Controls.Add(this.lblCoord);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.picGrid);
@@ -180,7 +214,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.numDagiac)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -196,6 +233,9 @@
         private System.Windows.Forms.NumericUpDown numDagiac;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.RadioButton rbtnCursor;
+        private System.Windows.Forms.Label lblCoord;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.Label lblData;
     }
 }
 
