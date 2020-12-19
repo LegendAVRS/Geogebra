@@ -24,7 +24,6 @@ namespace geogebra
         bool first_dot = true;
         int poly_dot_cnt = 0;
         SolidBrush poly_brush = new SolidBrush(Color.FromArgb(128, 176, 196, 222));
-        bool poly_drawn = false;
         List<int> poly_dot_cnt_list = new List<int>();
         Poly poly = new Poly();
 
@@ -40,8 +39,7 @@ namespace geogebra
         }
 
         private void Form1_Shown(object sender, EventArgs e)
-        {
-    
+        {    
             form_width = ActiveForm.Width - threshold;
             form_height = ActiveForm.Height;
 
@@ -50,9 +48,7 @@ namespace geogebra
             picGrid.Height = form_height;
             picGrid.Width = form_width;
 
-            poly_dot_cnt_list.Add(0);
-
-           
+            poly_dot_cnt_list.Add(0);           
         }
 
         void rbtnCheck()
@@ -137,6 +133,7 @@ namespace geogebra
                 if (dot.new_x == dot.old_x && dot.new_y == dot.old_y)
                     return;
             }
+
             dot.brush.Color = Color.FromArgb(128, 211, 211, 211);
             dot.drawDot(dot, dot.new_x, dot.new_y);
             dot.old_x = dot.new_x;
@@ -150,21 +147,84 @@ namespace geogebra
             graphics.DrawImage(drawn_surface, 0, 0, form_width, form_height);
             graphics.Dispose();
    
-            picGrid.Image = final;
-      
+            picGrid.Image = final;      
         }
 
+        bool caseCursor()
+        {
+            if (cursor)
+            {
+                Poly.Polygon polygon_click = poly.GetClickPoly(dot.new_x, dot.new_y);
+                if (!(polygon_click.poly_dot_list is null))
+                    Console.WriteLine(polygon_click.area);
+                return true;
+            }
+            return false;
+        }
+        
+        bool caseLineConnect()
+        {
+            if (line_connect)
+            {
+                dot.pen.Color = Color.Black;
+                if (dot.dot_list.Count() > 1)
+                {
+                    dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);             
+                }
+                return true;
+            }            
+            return false;
+        }
+
+        bool caseLineCut()
+        {
+            if (line_cut)
+            {
+                if (!first_dot)
+                {
+                    dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);
+                    first_dot = true;                    
+                }
+                else first_dot = false;
+                return true;
+            }
+            return false;
+        }
+
+        bool caseDagiac()
+        {
+            if (da_giac)
+            {
+                ++poly_dot_cnt;
+                poly_dot_cnt_list.Add(poly_dot_cnt % (int)numDagiac.Value);
+
+                if (poly_dot_cnt == (int)numDagiac.Value)
+                {
+                    List<Point> poly_list = new List<Point>();
+                    for (int i = 1; i <= (int)numDagiac.Value; ++i)
+                        poly_list.Add(dot.dot_list[dot.dot_list.Count - i]);
+
+                    Poly.Polygon new_poly = new Poly.Polygon();
+                    new_poly.poly_dot_list = poly_list;
+                    new_poly.area = poly.getArea(poly_list);
+                    poly.poly_drawn_list.Insert(0, new_poly);
+
+
+                    dot.dot_matrix.DrawPolygon(dot.pen, poly_list.ToArray());
+                    dot.dot_matrix.FillPolygon(poly_brush, poly_list.ToArray());
+                    poly_dot_cnt = 0;
+                }
+                return true;
+            }
+            return false;
+        }
         private void picGrid_Click(object sender, EventArgs e)
         {            
             MouseEventArgs me = (MouseEventArgs)e;
             if (me.Button == MouseButtons.Left)
             {
-                if (cursor)
-                {
-                    bool contain = poly.GetClickPoly(dot.new_x, dot.new_y);
-                    Console.WriteLine(contain);
-                    return;
-                }
+                if (caseCursor()) return;
+
                 bm_list.Add((Bitmap)drawn_surface.Clone());
                 dot.dot_list.Add(new Point(dot.new_x, dot.new_y));
 
@@ -172,54 +232,16 @@ namespace geogebra
                 dot.dot_matrix.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
                 dot.brush.Color = Color.Black;
-                dot.drawDot(dot, dot.new_x, dot.new_y);
+                if (show_dot) dot.drawDot(dot, dot.new_x, dot.new_y);       
 
-                poly_drawn = false;
+               // Color temp = new Color();
+               // temp = dot.pen.Color;
 
+                if (caseLineConnect()) return;
+                if (caseLineCut()) return;
+                if (caseDagiac()) return;        
 
-                Color temp = new Color();
-                temp = dot.pen.Color;
-
-                if (line_connect)
-                {
-                    
-                    dot.pen.Color = Color.Black;
-                    if (dot.dot_list.Count() > 1)
-                    {
-                        
-                        dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);
-                    }
-                }
-                else if (line_cut)
-                {
-                    if (!first_dot)
-                    {
-                        dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);
-                        first_dot = true;
-                    }
-                    else first_dot = false;
-                }
-                else if (da_giac)
-                {
-                    ++poly_dot_cnt;
-                    poly_dot_cnt_list.Add(poly_dot_cnt % (int)numDagiac.Value);
-                   
-                    if (poly_dot_cnt == (int)numDagiac.Value)
-                    {
-                        List<Point> poly_list = new List<Point>();
-                        for (int i = 1;i <= (int)numDagiac.Value;++i)
-                            poly_list.Add(dot.dot_list[dot.dot_list.Count - i]);
-                        poly.poly_drawn_list.Add(poly_list);
-
-                        dot.dot_matrix.DrawPolygon(dot.pen, poly_list.ToArray());                        
-                        dot.dot_matrix.FillPolygon(poly_brush, poly_list.ToArray());
-                        poly_dot_cnt = 0;
-                        poly_drawn = true;
-                        
-                    }               
-                    
-                }
-                dot.pen.Color = temp;
+               // dot.pen.Color = temp;
             }
             else
             {
@@ -233,13 +255,11 @@ namespace geogebra
                     poly_dot_cnt_list.RemoveAt(poly_dot_cnt_list.Count - 1);
                     if (poly_dot_cnt == 0)
                     {
-                        if (poly.poly_drawn_list.Count != 0) poly.poly_drawn_list.RemoveAt(poly.poly_drawn_list.Count - 1);
+                        if (poly.poly_drawn_list.Count != 0) poly.poly_drawn_list.RemoveAt(0);//poly.poly_drawn_list.Count - 1)
                     }
-                    poly_dot_cnt = poly_dot_cnt_list[poly_dot_cnt_list.Count - 1];
-                    
+                    poly_dot_cnt = poly_dot_cnt_list[poly_dot_cnt_list.Count - 1];                    
                 }
-            }
-           
+            }           
         }
 
         private void Form1_Paint(object sender, PaintEventArgs e)
