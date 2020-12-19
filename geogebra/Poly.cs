@@ -15,6 +15,7 @@ namespace geogebra
         {
             public List<Point> poly_dot_list;
             public float area;
+            public float perimeter;
         }
 
         // public List<List<Point>> poly_drawn_list = new List<List<Point>>();
@@ -69,6 +70,24 @@ namespace geogebra
             }
 
             return Math.Abs(area / line_ratio);
+        }
+
+        public float getPerimeter(List<Point>poly_list)
+        {
+            float res = 0;
+            for (int i = 0;i < poly_list.Count;++i)
+            {
+                int value_1 = Math.Abs(poly_list[i].X - poly_list[(i + 1) % poly_list.Count].X);
+                value_1 *= value_1;
+
+                int value_2 = Math.Abs(poly_list[i].Y - poly_list[(i + 1) % poly_list.Count].Y);
+                value_2 *= value_2;
+
+                float d = (float)Math.Sqrt(value_1 + value_2);
+
+                res += d / 50;
+            }      
+            return res;
         }
     }
 }

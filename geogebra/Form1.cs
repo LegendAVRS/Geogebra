@@ -156,7 +156,11 @@ namespace geogebra
             {
                 Poly.Polygon polygon_click = poly.GetClickPoly(dot.new_x, dot.new_y);
                 if (!(polygon_click.poly_dot_list is null))
-                    Console.WriteLine(polygon_click.area);
+                {
+                    Console.WriteLine("Area: " + polygon_click.area.ToString());
+                    Console.WriteLine("Perimeter: " + polygon_click.perimeter.ToString());
+                }
+
                 return true;
             }
             return false;
@@ -207,6 +211,7 @@ namespace geogebra
                     Poly.Polygon new_poly = new Poly.Polygon();
                     new_poly.poly_dot_list = poly_list;
                     new_poly.area = poly.getArea(poly_list);
+                    new_poly.perimeter = poly.getPerimeter(poly_list);
                     poly.poly_drawn_list.Insert(0, new_poly);
 
 
