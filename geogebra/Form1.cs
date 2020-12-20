@@ -28,10 +28,13 @@ namespace geogebra
         Poly poly = new Poly();
         Point middle_point = new Point();
 
+        
+
 
         public Form1()
         {
             InitializeComponent();
+            this.DoubleBuffered = true;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -113,6 +116,8 @@ namespace geogebra
                 return;
             if (e.X > form_width)
                 return;
+
+            caseCursor(false);
           
             dot_surface = new Bitmap(form_width, form_height);
             dot.dot_matrix = Graphics.FromImage(dot_surface);
@@ -155,17 +160,25 @@ namespace geogebra
             picGrid.Image = final;      
         }
 
-        bool caseCursor()
+        bool caseCursor(bool clicked)
         {
             if (cursor)
             {
                 Poly.Polygon polygon_click = poly.GetClickPoly(dot.new_x, dot.new_y);
-                if (!(polygon_click.poly_dot_list is null))
+                if (!(polygon_click.poly_dot_list is null)) Cursor.Current = Cursors.Hand;
+                if (!(polygon_click.poly_dot_list is null) && clicked)
                 {
                     lblData.Text = "Area: " + polygon_click.area.ToString("0.00") + "\n"
                                     + "Perimeter: " + polygon_click.perimeter.ToString("0.00");
                //     Console.WriteLine("Area: " + polygon_click.area.ToString());
                //     Console.WriteLine("Perimeter: " + polygon_click.perimeter.ToString());
+                }
+
+                Line line_click = Line.GetLineClick(dot.new_x, dot.new_y);
+                if (line_click.length != 0) Cursor.Current = Cursors.Hand;
+                if (line_click.length != 0 && clicked)
+                {
+                    lblData.Text = "Length: " + line_click.length.ToString();                    
                 }
 
                 return true;
@@ -180,8 +193,9 @@ namespace geogebra
                 dot.pen.Color = Color.Black;
                 if (dot.dot_list.Count() > 1)
                 {
-                    dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);             
-                }
+                    dot.dot_matrix.DrawLine(dot.pen, dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);
+                    new Line(dot.dot_list[dot.dot_list.Count - 2], dot.dot_list[dot.dot_list.Count - 1]);
+                }                
                 return true;
             }            
             return false;
@@ -219,7 +233,7 @@ namespace geogebra
                     new_poly.poly_dot_list = poly_list;
                     new_poly.area = poly.getArea(poly_list);
                     new_poly.perimeter = poly.getPerimeter(poly_list);
-                    poly.poly_drawn_list.Insert(0, new_poly);
+                    poly.poly_drawn_list.Add(new_poly);
 
 
                     dot.dot_matrix.DrawPolygon(dot.pen, poly_list.ToArray());
@@ -235,7 +249,7 @@ namespace geogebra
             MouseEventArgs me = (MouseEventArgs)e;
             if (me.Button == MouseButtons.Left)
             {
-                if (caseCursor()) return;
+                if (caseCursor(true)) return;
 
                 bm_list.Add((Bitmap)drawn_surface.Clone());
                 dot.dot_list.Add(new Point(dot.new_x, dot.new_y));
@@ -267,7 +281,7 @@ namespace geogebra
                     poly_dot_cnt_list.RemoveAt(poly_dot_cnt_list.Count - 1);
                     if (poly_dot_cnt == 0)
                     {
-                        if (poly.poly_drawn_list.Count != 0) poly.poly_drawn_list.RemoveAt(0);//poly.poly_drawn_list.Count - 1)
+                        if (poly.poly_drawn_list.Count != 0) poly.poly_drawn_list.RemoveAt(poly.poly_drawn_list.Count - 1);//poly.poly_drawn_list.Count - 1)
                     }
                     poly_dot_cnt = poly_dot_cnt_list[poly_dot_cnt_list.Count - 1];                    
                 }

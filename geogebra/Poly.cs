@@ -25,8 +25,9 @@ namespace geogebra
         public List<float> poly_area_list = new List<float>();
         public Polygon GetClickPoly(int x, int y)
         {          
-            foreach (var item in poly_drawn_list)
+            for (int i = poly_drawn_list.Count - 1;i >= 0;--i)
             {
+                Polygon item = poly_drawn_list[i];
                 var new_path = new GraphicsPath();                
                 new_path.AddPolygon(item.poly_dot_list.ToArray());
                 if (new_path.IsVisible(x, y))        

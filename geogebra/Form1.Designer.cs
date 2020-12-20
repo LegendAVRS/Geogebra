@@ -66,12 +66,12 @@
             this.groupBox1.Controls.Add(this.rbtnDagiac);
             this.groupBox1.Controls.Add(this.rbtnLineCut);
             this.groupBox1.Controls.Add(this.rbtnLine);
-            this.groupBox1.Location = new System.Drawing.Point(652, -1);
+            this.groupBox1.Location = new System.Drawing.Point(745, -1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(131, 160);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "groupBox1";
+            this.groupBox1.Text = "Modes";
             // 
             // rbtnCursor
             // 
@@ -89,6 +89,11 @@
             // numDagiac
             // 
             this.numDagiac.Location = new System.Drawing.Point(10, 129);
+            this.numDagiac.Minimum = new decimal(new int[] {
+            3,
+            0,
+            0,
+            0});
             this.numDagiac.Name = "numDagiac";
             this.numDagiac.Size = new System.Drawing.Size(120, 22);
             this.numDagiac.TabIndex = 3;
@@ -162,17 +167,17 @@
             // 
             this.groupBox2.Controls.Add(this.cbtnRound);
             this.groupBox2.Controls.Add(this.cbtnShowDot);
-            this.groupBox2.Location = new System.Drawing.Point(652, 195);
+            this.groupBox2.Location = new System.Drawing.Point(745, 195);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(131, 100);
             this.groupBox2.TabIndex = 4;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "groupBox2";
+            this.groupBox2.Text = "Preferences";
             // 
             // lblCoord
             // 
             this.lblCoord.AutoSize = true;
-            this.lblCoord.Location = new System.Drawing.Point(12, 441);
+            this.lblCoord.Location = new System.Drawing.Point(12, 463);
             this.lblCoord.Name = "lblCoord";
             this.lblCoord.Size = new System.Drawing.Size(46, 17);
             this.lblCoord.TabIndex = 5;
@@ -181,12 +186,12 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lblData);
-            this.groupBox3.Location = new System.Drawing.Point(652, 336);
+            this.groupBox3.Location = new System.Drawing.Point(745, 336);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(122, 100);
             this.groupBox3.TabIndex = 6;
             this.groupBox3.TabStop = false;
-            this.groupBox3.Text = "groupBox3";
+            this.groupBox3.Text = "Info";
             // 
             // lblData
             // 
@@ -199,7 +204,7 @@
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(780, 467);
+            this.ClientSize = new System.Drawing.Size(874, 489);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblCoord);
             this.Controls.Add(this.groupBox2);
