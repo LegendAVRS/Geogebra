@@ -10,33 +10,41 @@ namespace geogebra
 {
     class Poly
     {
-        
-        public struct Polygon
-        {
-            public List<Point> poly_dot_list;
-            public float area;
-            public float perimeter;
-        }
+        static public SolidBrush brush = new SolidBrush(Color.FromArgb(128, 176, 196, 222));
 
+        public float perimeter;
+        public float area;
+        public List<Point> poly_dot_list;
         // public List<List<Point>> poly_drawn_list = new List<List<Point>>();
 
-        public List<Polygon> poly_drawn_list = new List<Polygon>();
+        static public List<Poly> poly_drawn_list = new List<Poly>();
 
-        public List<float> poly_area_list = new List<float>();
-        public Polygon GetClickPoly(int x, int y)
+        public Poly(List<Point>poly_dot_list, float perimeter, float area)
+        {
+            this.poly_dot_list = poly_dot_list;
+            this.perimeter = perimeter;
+            this.area = area;
+        }
+
+        public Poly(float area)
+        {
+            this.area = area;
+        }
+
+        static public Poly GetClickPoly(int x, int y)
         {          
             for (int i = poly_drawn_list.Count - 1;i >= 0;--i)
             {
-                Polygon item = poly_drawn_list[i];
+                Poly item = poly_drawn_list[i];
                 var new_path = new GraphicsPath();                
                 new_path.AddPolygon(item.poly_dot_list.ToArray());
                 if (new_path.IsVisible(x, y))        
                     return item;                                                         
             }
-            return new Polygon();
+            return new Poly(0);
         }
 
-        public float getArea(List<Point> poly_list)
+        static public float getArea(List<Point> poly_list)
         {
             int num_points = poly_list.Count;
 
@@ -73,7 +81,7 @@ namespace geogebra
             return Math.Abs(area / line_ratio);
         }
 
-        public float getPerimeter(List<Point>poly_list)
+        static public float getPerimeter(List<Point>poly_list)
         {
             float res = 0;
             for (int i = 0;i < poly_list.Count;++i)

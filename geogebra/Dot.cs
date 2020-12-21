@@ -10,14 +10,19 @@ namespace geogebra
     
     public class Dot
     {
-        public Graphics dot_matrix;
-        public Pen pen = new Pen(Color.Black);
-        public SolidBrush brush = new SolidBrush(Color.Black);
-        public bool first_dot = true;
-        public int new_x, new_y, old_x, old_y;
+        static public Graphics dot_hover_matrix;
+        static public Graphics dot_drawn_matrix;
+
+        static public Pen pen = new Pen(Color.Black);
+        static public SolidBrush brush = new SolidBrush(Color.Black);
+
+        static public bool first_hover_dot = true;
+        static public int new_hover_x, new_hover_y, old_hover_x, old_hover_y;
+
         public int dot_cnt = 0;
-        public List<Point> dot_list = new List<Point>();
-        private int dot_size = 8;
+        static public List<Point> dot_list = new List<Point>();
+        static private int dot_size = 8;
+
         private int getFirstNotSmaller(List<int> p_list, int p)
         {
             int l = 0, r = p_list.Count() - 1, res = r;
@@ -54,14 +59,20 @@ namespace geogebra
             int pL = getLastSmaller(p_list, p);
             if (Math.Abs(pR - p) <= Math.Abs(pL - p)) return pR;
             return pL;
-        }
+        }     
         
-        
-
-        public void drawDot(Dot dot, int x, int y)
+        static public void drawDot(bool hover, int x, int y)
         {
-            dot.dot_matrix.DrawEllipse(dot.pen, x - 4, y - 4, dot_size, dot_size);
-            dot.dot_matrix.FillEllipse(dot.brush, x - 4, y - 4, dot_size, dot_size);
+            if (hover)
+            {
+                dot_hover_matrix.DrawEllipse(pen, x - 4, y - 4, dot_size, dot_size);
+                dot_hover_matrix.FillEllipse(brush, x - 4, y - 4, dot_size, dot_size);
+            }         
+            else
+            {
+                dot_drawn_matrix.DrawEllipse(pen, x - 4, y - 4, dot_size, dot_size);
+                dot_drawn_matrix.FillEllipse(brush, x - 4, y - 4, dot_size, dot_size);
+            }
         }
        
     }
