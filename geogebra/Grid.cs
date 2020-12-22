@@ -17,8 +17,6 @@ namespace geogebra
         static public int first_horizontal;
         static public int first_vertical;
 
-        static int threshold = 150;
-
         static public void DrawAxis()
         {
             int form_width = Form1.ActiveForm.Width - GlobalVar.threshold;
@@ -37,7 +35,7 @@ namespace geogebra
 
         static public void DrawGridLine()
         {
-            int form_width = Form1.ActiveForm.Width - threshold;
+            int form_width = Form1.ActiveForm.Width - GlobalVar.threshold;
             int form_height = Form1.ActiveForm.Height;
 
             pen.Color = Color.LightGray;

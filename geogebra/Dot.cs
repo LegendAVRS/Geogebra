@@ -65,11 +65,15 @@ namespace geogebra
         {
             if (hover)
             {
+                pen.Color = Color.Black;
+                brush.Color = Color.LightGray;
                 dot_hover_matrix.DrawEllipse(pen, x - 4, y - 4, dot_size, dot_size);
                 dot_hover_matrix.FillEllipse(brush, x - 4, y - 4, dot_size, dot_size);
             }         
             else
             {
+                pen.Color = Color.Black;
+                brush.Color = Color.Black;
                 dot_drawn_matrix.DrawEllipse(pen, x - 4, y - 4, dot_size, dot_size);
                 dot_drawn_matrix.FillEllipse(brush, x - 4, y - 4, dot_size, dot_size);
             }

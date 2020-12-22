@@ -21,7 +21,7 @@ namespace geogebra
             value_x *= value_x;
             float value_y = Math.Abs(a.Y - b.Y);
             value_y *= value_y;
-            return (float)Math.Sqrt(value_x + value_y);
+            return (float)(Math.Sqrt(value_x + value_y) / 50);
         }
 
         public Line()

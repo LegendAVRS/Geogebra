@@ -52,7 +52,7 @@
             // 
             this.picGrid.Location = new System.Drawing.Point(-2, -1);
             this.picGrid.Name = "picGrid";
-            this.picGrid.Size = new System.Drawing.Size(655, 385);
+            this.picGrid.Size = new System.Drawing.Size(544, 343);
             this.picGrid.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.picGrid.TabIndex = 0;
             this.picGrid.TabStop = false;
@@ -66,7 +66,7 @@
             this.groupBox1.Controls.Add(this.rbtnDagiac);
             this.groupBox1.Controls.Add(this.rbtnLineCut);
             this.groupBox1.Controls.Add(this.rbtnLine);
-            this.groupBox1.Location = new System.Drawing.Point(745, -1);
+            this.groupBox1.Location = new System.Drawing.Point(683, -1);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(131, 160);
             this.groupBox1.TabIndex = 1;
@@ -108,10 +108,10 @@
             this.rbtnDagiac.AutoSize = true;
             this.rbtnDagiac.Location = new System.Drawing.Point(10, 102);
             this.rbtnDagiac.Name = "rbtnDagiac";
-            this.rbtnDagiac.Size = new System.Drawing.Size(77, 21);
+            this.rbtnDagiac.Size = new System.Drawing.Size(80, 21);
             this.rbtnDagiac.TabIndex = 2;
             this.rbtnDagiac.TabStop = true;
-            this.rbtnDagiac.Text = "Da giac";
+            this.rbtnDagiac.Text = "Polygon";
             this.rbtnDagiac.UseVisualStyleBackColor = true;
             this.rbtnDagiac.CheckedChanged += new System.EventHandler(this.rbtnDagiac_CheckedChanged);
             // 
@@ -167,7 +167,7 @@
             // 
             this.groupBox2.Controls.Add(this.cbtnRound);
             this.groupBox2.Controls.Add(this.cbtnShowDot);
-            this.groupBox2.Location = new System.Drawing.Point(745, 195);
+            this.groupBox2.Location = new System.Drawing.Point(683, 195);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(131, 100);
             this.groupBox2.TabIndex = 4;
@@ -177,7 +177,7 @@
             // lblCoord
             // 
             this.lblCoord.AutoSize = true;
-            this.lblCoord.Location = new System.Drawing.Point(12, 463);
+            this.lblCoord.Location = new System.Drawing.Point(12, 436);
             this.lblCoord.Name = "lblCoord";
             this.lblCoord.Size = new System.Drawing.Size(46, 17);
             this.lblCoord.TabIndex = 5;
@@ -186,7 +186,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.lblData);
-            this.groupBox3.Location = new System.Drawing.Point(745, 336);
+            this.groupBox3.Location = new System.Drawing.Point(683, 321);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(122, 100);
             this.groupBox3.TabIndex = 6;
@@ -198,13 +198,13 @@
             this.lblData.AutoSize = true;
             this.lblData.Location = new System.Drawing.Point(6, 18);
             this.lblData.Name = "lblData";
-            this.lblData.Size = new System.Drawing.Size(46, 17);
+            this.lblData.Size = new System.Drawing.Size(20, 17);
             this.lblData.TabIndex = 0;
-            this.lblData.Text = "label1";
+            this.lblData.Text = "...";
             // 
             // Form1
             // 
-            this.ClientSize = new System.Drawing.Size(874, 489);
+            this.ClientSize = new System.Drawing.Size(817, 460);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblCoord);
             this.Controls.Add(this.groupBox2);
