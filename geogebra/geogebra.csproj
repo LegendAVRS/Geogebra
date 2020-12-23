@@ -52,8 +52,11 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="GlobalVar.cs" />
     <Compile Include="Grid.cs" />
     <Compile Include="Dot.cs" />
+    <Compile Include="Line.cs" />
+    <Compile Include="Poly.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Form1.resx">
