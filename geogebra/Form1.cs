@@ -25,21 +25,25 @@ namespace geogebra
 
         
         List<int> poly_dot_cnt_list = new List<int>();
-        Point middle_point = new Point();      
+        Point middle_point = new Point();
+
+        Bitmap bmp;
+        Cursor cur;
 
 
         public Form1()
         {
             InitializeComponent();
+            bmp = new Bitmap(12, 12);
+            Graphics g = Graphics.FromImage(bmp);
+            g.DrawEllipse(new Pen(Color.Black), 0, 0, 10, 10);
+            g.FillEllipse(new SolidBrush(Color.Transparent), 0, 0, 10, 10);
+            cur = new Cursor(bmp.GetHicon()); 
         }
 
         private void changeCursor()
         {
-            Bitmap bmp = new Bitmap(12, 12);
-            Graphics g = Graphics.FromImage(bmp);
-            g.DrawEllipse(new Pen(Color.Black), 0, 0, 10, 10);
-            g.FillEllipse(new SolidBrush(Color.Transparent), 0, 0, 10, 10);
-            picGrid.Cursor = new Cursor(bmp.GetHicon());
+            picGrid.Cursor = cur;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -100,6 +104,17 @@ namespace geogebra
             graphics.DrawImage(surface, 0, 0, form_width, form_height);
             picGrid.Image = final;
         }
+
+        private void redrawGraphic()
+        {
+            final.Dispose();
+            final = new Bitmap(form_width, form_height);
+            drawGraphic(grid_surface);
+            if (show_dot) drawGraphic(dot_drawn_surface);
+            drawGraphic(drawn_surface);
+            //if (!cursor && round) drawGraphic(dot_hover_surface);
+            picGrid.Image = final;
+        }
         private void cbtnShowDot_CheckedChanged(object sender, EventArgs e)
         {
             show_dot = cbtnShowDot.Checked;
@@ -130,12 +145,13 @@ namespace geogebra
                 return;
 
             caseCursor(false);
-            if (!cursor)
-            {                
+            /*if (!cursor && round)
+            {
+                if (!(dot_hover_surface is null)) dot_hover_surface.Dispose();
                 dot_hover_surface = new Bitmap(form_width, form_height);
                 Dot.dot_hover_matrix = Graphics.FromImage(dot_hover_surface);
                 Dot.dot_hover_matrix.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            }
+            }*/
 
             if (round)
             {
@@ -157,22 +173,18 @@ namespace geogebra
 
             if (!cursor && round)
             {
-                Dot.drawDot(true, Dot.new_hover_x, Dot.new_hover_y);
+                //Dot.drawDot(true, Dot.new_hover_x, Dot.new_hover_y);
                 Dot.old_hover_x = Dot.new_hover_x;
                 Dot.old_hover_y = Dot.new_hover_y;
             }
 
             lblCoord.Text = "X: " + ((float)(Dot.new_hover_x - middle_point.X) / 50).ToString("0.0") + 
-                            " Y: " + (-(float)(Dot.new_hover_y - middle_point.Y) / 50).ToString("0.0");            
+                            " Y: " + (-(float)(Dot.new_hover_y - middle_point.Y) / 50).ToString("0.0");
 
-            final = new Bitmap(form_width, form_height);      
-           
-            drawGraphic(grid_surface);            
-            if (show_dot) drawGraphic(dot_drawn_surface);
-            drawGraphic(drawn_surface);
-            if (!cursor && round) drawGraphic(dot_hover_surface);           
-
-            picGrid.Image = final;      
+            /*if (round)
+            {
+                redrawGraphic();
+            }            */
         }
 
         bool caseCursor(bool clicked)
@@ -211,7 +223,7 @@ namespace geogebra
                 if (Dot.dot_list.Count() > 1)
                 {
                     drawn_graphic.DrawLine(Dot.pen, Dot.dot_list[Dot.dot_list.Count - 2], Dot.dot_list[Dot.dot_list.Count - 1]);
-                    new Line(Dot.dot_list[Dot.dot_list.Count - 2], Dot.dot_list[Dot.dot_list.Count - 1]);
+                    new Line(Dot.dot_list[Dot.dot_list.Count - 2], Dot.dot_list[Dot.dot_list.Count - 1]);                    
                 }                
                 return true;
             }            
@@ -277,11 +289,23 @@ namespace geogebra
                 Dot.dot_list.Add(new Point(Dot.new_hover_x, Dot.new_hover_y));
 
                 Dot.brush.Color = Color.Black;
-                Dot.drawDot(false, Dot.new_hover_x, Dot.new_hover_y);       
+                Dot.drawDot(false, Dot.new_hover_x, Dot.new_hover_y);
 
-                if (caseLineConnect()) return;
-                if (caseLineCut()) return;
-                if (caseDagiac()) return;         
+                if (caseLineConnect())
+                {
+                    redrawGraphic();
+                    return;
+                }
+                if (caseLineCut())
+                {
+                    redrawGraphic();
+                    return;
+                }
+                if (caseDagiac())
+                {
+                    redrawGraphic();
+                    return;
+                }
             }
             else
             {
@@ -304,6 +328,7 @@ namespace geogebra
                     }
                     poly_dot_cnt = poly_dot_cnt_list[poly_dot_cnt_list.Count - 1];                    
                 }
+                redrawGraphic();
             }           
         }
 
@@ -313,6 +338,8 @@ namespace geogebra
             Grid.Matrix = Graphics.FromImage(grid_surface);
             Grid.DrawGridLine();
             Grid.DrawAxis();
+
+            //drawGraphic(grid_surface);
        
             picGrid.Image = grid_surface;
         }   
