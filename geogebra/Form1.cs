@@ -75,6 +75,7 @@ namespace geogebra
             changeCursor();
         }
 
+<<<<<<< HEAD
         void rbtnCheck()
         {
             line_connect = rbtnLine.Checked;
@@ -85,6 +86,15 @@ namespace geogebra
         private void rbtnLineCut_CheckedChanged(object sender, EventArgs e)
         {
             rbtnCheck();
+=======
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        { 
+            g.pen = new Pen(Color.Black);
+            g.Matrix = this.CreateGraphics();
+            g.DrawGridLine();
+            g.DrawAxis();
+
+>>>>>>> e36a6d9b1051921ce6ff20ae2f5dabf0e4c5da18
         }
 
         private void rbtnCursor_CheckedChanged(object sender, EventArgs e)
