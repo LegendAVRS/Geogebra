@@ -13,10 +13,6 @@ namespace geogebra
 
     public partial class Form1 : Form
     {
-        Grid g = new Grid();
-        Dot new_dot = new Dot();
-        int dot_x, dot_y;
-
         public Form1()
         {
             InitializeComponent();
@@ -25,36 +21,35 @@ namespace geogebra
         private void Form1_Load(object sender, EventArgs e)
         {
 
+
+
         }
 
-        private void Form1_Paint(object sender, PaintEventArgs e)
-        { 
-            g.pen = new Pen(Color.Black);
-            g.Matrix = this.CreateGraphics();
-            g.DrawGridLine();
-            g.DrawAxis();
-        }
-
-        private void Form1_Load_1(object sender, EventArgs e)
+        private void axMap1_MouseDownEvent(object sender, AxMapWinGIS._DMapEvents_MouseDownEvent e)
         {
 
         }
 
-        private void Form1_MouseMove(object sender, MouseEventArgs e)
+        private void button1_Click(object sender, EventArgs e)
         {
-              if (!new_dot.first_dot)
-              {
-                g.pen.Color = Form1.DefaultBackColor;
-                g.Matrix.DrawEllipse(g.pen, dot_x, dot_y, 5, 5);
-                g.pen.Color = Color.Black;
-              }
+            axMap1.CursorMode = MapWinGIS.tkCursorMode.cmMeasure;
+            axMap1.Measuring.MeasuringType = MapWinGIS.tkMeasuringType.MeasureArea;
+        }
 
-              dot_x = new_dot.getNearest(g.x_list, e.X);
-              dot_y = new_dot.getNearest(g.y_list, e.Y);
-              g.Matrix.DrawEllipse(g.pen, dot_x, dot_y, 5, 5);
-              new_dot.first_dot = false;
+        private void button2_Click(object sender, EventArgs e)
+        {
+            axMap1.CursorMode = MapWinGIS.tkCursorMode.cmPan;
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            axMap1.CursorMode = MapWinGIS.tkCursorMode.cmMeasure;
 
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
