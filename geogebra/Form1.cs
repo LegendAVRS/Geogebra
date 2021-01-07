@@ -153,7 +153,7 @@ namespace geogebra
                 Dot.dot_hover_matrix.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
             }*/
 
-            if (round)
+            if (round && !cursor)
             {
                 Dot.new_hover_x = dot.getNearest(Grid.x_list, Grid.first_vertical, e.X);
                 Dot.new_hover_y = dot.getNearest(Grid.y_list, Grid.first_horizontal, e.Y);
