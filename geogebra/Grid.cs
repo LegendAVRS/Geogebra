@@ -30,11 +30,13 @@ namespace geogebra
             p1.Y = Form1.ActiveForm.Height / 2;
             p2.X = form_width;
             p2.Y = p1.Y;
-            Matrix.DrawLine(pen, p1, p2);
+            Matrix.DrawLine(pen, p1, p2);        
+         
         }
 
         static public void DrawGridLine()
         {
+
             int form_width = Form1.ActiveForm.Width - GlobalVar.threshold;
             int form_height = Form1.ActiveForm.Height;
 
@@ -43,7 +45,8 @@ namespace geogebra
             Point p1 = middle_point, p2 = middle_point;
             p1.X = 0;
             p2.X = form_width;
-            int space = 50;
+            int space = 50, num = 1;
+            Matrix.DrawString("0", new Font("Arial Narrow", 8), new SolidBrush(Color.Black), middle_point.X - 10, middle_point.Y - 15);
 
             while (p1.Y > 0) //Upper horizontal lines
             {
@@ -51,6 +54,8 @@ namespace geogebra
                 y_list.Add(p1.Y);
                 p1.Y -= space;
                 p2.Y -= space;
+
+                Matrix.DrawString(num++.ToString(), new Font("Arial Narrow", 8), new SolidBrush(Color.Black), middle_point.X - 10, p1.Y - 15);
             }
 
             first_horizontal = p1.Y + space;
@@ -59,25 +64,29 @@ namespace geogebra
             p2 = middle_point;
             p1.X = 0;
             p2.X = form_width;
+            num = -1;
             while (p1.Y < form_height) //Lower horizontal lines
             {
                 Matrix.DrawLine(pen, p1, p2);
                 y_list.Add(p1.Y);
                 p1.Y += space;
                 p2.Y += space;
+
+                Matrix.DrawString(num--.ToString(), new Font("Arial Narrow", 8), new SolidBrush(Color.Black), middle_point.X - 14, p1.Y - 15);
             }
 
             p1 = middle_point;
             p2 = middle_point;
             p1.Y = 0;
-            p2.Y = form_height; 
-
+            p2.Y = form_height;
+            num = -1;
             while (p1.X > 0) //Left vertial lines
             {
                 Matrix.DrawLine(pen, p1, p2);
                 x_list.Add(p1.X);
                 p1.X -= space;
                 p2.X -= space;
+                Matrix.DrawString(num--.ToString(), new Font("Arial Narrow", 8), new SolidBrush(Color.Black), p1.X - (12 + num.ToString().Length), middle_point.Y - 15);
             }
 
             first_vertical = p1.X + space;
@@ -86,13 +95,14 @@ namespace geogebra
             p2 = middle_point;
             p1.Y = 0;
             p2.Y = form_height;
-
+            num = 1;
             while (p1.X < form_width)  //Right vertical lines
             {
                 Matrix.DrawLine(pen, p1, p2);
                 x_list.Add(p1.X);
                 p1.X += space;
                 p2.X += space;
+                Matrix.DrawString(num++.ToString(), new Font("Arial Narrow", 8), new SolidBrush(Color.Black), p1.X - (10 + num.ToString().Length), middle_point.Y - 15);
             }
 
             x_list.Sort();
